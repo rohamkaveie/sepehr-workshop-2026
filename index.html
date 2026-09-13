@@ -3,256 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>کارگاه جامع و کاربردی | ثبت‌نام دوره حضوری و آنلاین</title>
-  
-  <!-- Tailwind CSS CDN -->
+  <title>کارگاه عملی طراحی و پیاده‌سازی لینک TT&C با MATLAB و ADALM-Pluto</title>
+
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Font: Vazirmatn (بدون نیاز به دانلود فونت محلی) -->
+
+  <!-- فونت وزیرمتن -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: 'Vazirmatn', sans-serif;
-    }
+  <style> 
+    body { font-family: 'Vazirmatn', sans-serif; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
 
-  <!-- Navbar -->
-  <nav class="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-lg">W</span>
-        <span class="font-black text-lg text-slate-900">آکادمی رشد</span>
-      </div>
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-        <a href="#about" class="hover:text-indigo-600 transition">درباره کارگاه</a>
-        <a href="#topics" class="hover:text-indigo-600 transition">سرفصل‌ها</a>
-        <a href="#instructor" class="hover:text-indigo-600 transition">مدرس</a>
-        <a href="#faq" class="hover:text-indigo-600 transition">سؤالات متداول</a>
-      </div>
-      <a href="#register" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-sm hover:shadow transition">
-        رزرو صندلی
-      </a>
-    </div>
-  </nav>
+  <!-- کامپوننت‌های صفحه -->
+  <div data-component="navbar"></div>
+  <div data-component="hero"></div>
+  <div data-component="about"></div>
+  <div data-component="topics"></div>
+  <div data-component="instructor"></div>
+  <div data-component="faq"></div>
+  <div data-component="register"></div>
+  <div data-component="footer"></div>
 
-  <!-- Hero Section -->
-  <header class="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32 bg-gradient-to-b from-indigo-50/50 to-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-      
-      <!-- Badges -->
-      <div class="inline-flex items-center gap-2 bg-indigo-100/80 border border-indigo-200 px-3.5 py-1.5 rounded-full text-xs font-bold text-indigo-800 mb-6">
-        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        ظرفیت محدود: فقط ۲۵ نفر
-      </div>
-
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-snug sm:leading-tight mb-6">
-        تسلط عملی بر مهارت‌های روز؛ <br class="hidden sm:inline"/>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">از مقدماتی تا ورود به بازار کار</span>
-      </h1>
-
-      <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-600 mb-10 leading-relaxed font-normal">
-        یک کارگاه فشرده و ۱۰۰٪ پروژه‌محور که به شما یاد می‌دهد بدون سردرگمی، مسیر حرفه‌ای خود را بسازید و پروژه‌های واقعی پیاده کنید.
-      </p>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#register" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-200 transition">
-          ثبت‌نام در کارگاه
-        </a>
-        <a href="#topics" class="w-full sm:w-auto bg-white border border-slate-300 hover:border-slate-400 text-slate-700 font-semibold px-8 py-3.5 rounded-xl transition">
-          مشاهده سرفصل‌ها
-        </a>
-      </div>
-
-      <!-- Quick Metrics Strip -->
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border border-slate-200 bg-white rounded-2xl p-6 shadow-sm">
-        <div>
-          <div class="text-2xl font-extrabold text-slate-900">۸ ساعت</div>
-          <div class="text-xs text-slate-500 mt-1 font-medium">آموزش تعاملی و عملی</div>
-        </div>
-        <div>
-          <div class="text-2xl font-extrabold text-slate-900">آنلاین</div>
-          <div class="text-xs text-slate-500 mt-1 font-medium">به همراه دسترسی به ضبط</div>
-        </div>
-        <div>
-          <div class="text-2xl font-extrabold text-slate-900">پروژه‌محور</div>
-          <div class="text-xs text-slate-500 mt-1 font-medium">پیاده‌سازی زنده محصول</div>
-        </div>
-        <div>
-          <div class="text-2xl font-extrabold text-slate-900">گواهی</div>
-          <div class="text-xs text-slate-500 mt-1 font-medium">تکمیل رسمی دوره</div>
-        </div>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- About / Why Join Section -->
-  <section id="about" class="py-20 bg-white border-t border-slate-100">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-2">چرا این کارگاه؟</h2>
-        <p class="text-2xl sm:text-3xl font-black text-slate-900">تمرکز روی نیاز واقعی بازار، بدون اضافه گویی</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xl mb-4">
-            ۱
-          </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">آموزش مبتنی بر سناریو</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            هیچ مبحث تئوری محض نخواهیم داشت. هر مفهومی بلافاصله در قالب یک سناریوی واقعی تست و بررسی می‌شود.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xl mb-4">
-            ۲
-          </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">رفع اشکال زنده</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            در تمام طول کارگاه کدهای شما بررسی شده و به چالش‌ها و سؤالات فنی به صورت مستقیم پاسخ داده می‌شود.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xl mb-4">
-            ۳
-          </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">شبکه‌سازی حرفه‌ای</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            عضویت در گروه خصوصی شرکت‌کنندگان جهت تبادل تجربیات، معرفی فرصت‌های شغلی و ارتباط دائمی.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Topics / Agenda -->
-  <section id="topics" class="py-20 bg-slate-50 border-t border-slate-200/60">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-2">مسیر آموزشی</h2>
-        <p class="text-2xl sm:text-3xl font-black text-slate-900">سرفصل‌های کارگاه</p>
-      </div>
-
-      <div class="space-y-4">
-        <!-- Topic 1 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">بخش اول • ۲ ساعت</span>
-            <h4 class="text-base font-bold text-slate-900 mt-2">اصول اولیه، ساختار و ابزارشناسی نوین</h4>
-            <p class="text-sm text-slate-500 mt-1">آشنایی با متدولوژی‌های استاندارد و آماده‌سازی محیط کار</p>
-          </div>
-        </div>
-
-        <!-- Topic 2 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">بخش دوم • ۳ ساعت</span>
-            <h4 class="text-base font-bold text-slate-900 mt-2">کدنویسی و توسعه عملی پروژه از صفر</h4>
-            <p class="text-sm text-slate-500 mt-1">طراحی معماری، پیاده‌سازی گام‌به‌گام و مدیریت حالت‌ها</p>
-          </div>
-        </div>
-
-        <!-- Topic 3 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">بخش سوم • ۳ ساعت</span>
-            <h4 class="text-base font-bold text-slate-900 mt-2">تست، استقرار (Deploy) و جلسه پرسش و پاسخ نهایی</h4>
-            <p class="text-sm text-slate-500 mt-1">نکات بهینه‌سازی، امنیت پروژه و هدایت شغلی</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Instructor Section -->
-  <section id="instructor" class="py-20 bg-white border-t border-slate-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="bg-slate-900 rounded-3xl text-white p-8 sm:p-12 flex flex-col sm:flex-row items-center gap-8">
-        <div class="w-32 h-32 rounded-2xl bg-slate-800 border-2 border-slate-700 flex items-center justify-center shrink-0 text-slate-500">
-          <!-- Placeholder Avatar -->
-          <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-          </svg>
-        </div>
-        <div>
-          <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">مدرس دوره</span>
-          <h3 class="text-xl sm:text-2xl font-bold mt-1 mb-3">نام و نام خانوادگی مدرس</h3>
-          <p class="text-slate-300 text-sm leading-relaxed mb-4">
-            توسعه‌دهنده ارشد و مشاور فنی با بیش از ۷ سال تجربه در طراحی و پیاده‌سازی سیستم‌های مقیاس‌پذیر در شرکت‌های پیشرو ایرانی و بین‌المللی.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section id="faq" class="py-20 bg-slate-50 border-t border-slate-200/60">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-2">ابهامات شما</h2>
-        <p class="text-2xl font-black text-slate-900">سؤالات متداول</p>
-      </div>
-
-      <div class="space-y-4">
-        <details class="group bg-white p-6 rounded-2xl border border-slate-200 [&_summary::-webkit-details-marker]:hidden">
-          <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer">
-            <span>آیا فیلم ضبط‌شده کارگاه در اختیار ما قرار می‌گیرد؟</span>
-            <span class="transition group-open:rotate-180 text-slate-400">▼</span>
-          </summary>
-          <p class="text-sm text-slate-600 leading-relaxed mt-4">
-            بله، حداکثر تا ۲۴ ساعت پس از پایان کارگاه، ویدیوی باکیفیت و کامل جلسات به همراه تمام فایل‌ها و سورس‌کدها برای شما ارسال خواهد شد.
-          </p>
-        </details>
-
-        <details class="group bg-white p-6 rounded-2xl border border-slate-200 [&_summary::-webkit-details-marker]:hidden">
-          <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer">
-            <span>این دوره چه پیش‌نیازی دارد؟</span>
-            <summary class="hidden"></summary>
-            <span class="transition group-open:rotate-180 text-slate-400">▼</span>
-          </summary>
-          <p class="text-sm text-slate-600 leading-relaxed mt-4">
-            آشنایی اولیه با مفاهیم پایه‌ای کافی است. تمام ابزارها و مراحل تخصصی در طول کارگاه به صورت گام‌به‌گام توضیح داده می‌شوند.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Registration Placeholder Section (در مراحل بعد فرم و API به اینجا متصل می‌شود) -->
-  <section id="register" class="py-20 bg-white border-t border-slate-200">
-    <div class="max-w-xl mx-auto px-4 sm:px-6 text-center">
-      <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">مرحله بعدی</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1 mb-4">فرم ثبت‌نام و پرداخت</h2>
-      <p class="text-sm text-slate-500 mb-8 leading-relaxed">
-        این بخش برای اتصال به سرور و درگاه پرداخت رزرو شده است.
-      </p>
-
-      <div class="p-8 border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 flex flex-col items-center justify-center">
-        <div class="w-12 h-12 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center mb-3">
-          🔒
-        </div>
-        <p class="text-sm font-semibold text-slate-700">باکس فرم ثبت‌نام</p>
-        <p class="text-xs text-slate-400 mt-1">در گام‌های بعدی فیلدهای نام، ایمیل، موبایل و شمارنده ظرفیت اینجا قرار می‌گیرند.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 bg-slate-900 text-slate-400 text-xs border-t border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <p>© کلیه حقوق برای آکادمی محفوظ است • برگزاری کارگاه‌های تخصصی</p>
-    </div>
-  </footer>
-
+  <!-- اسکریپت بارگذاری خودکار کامپوننت‌ها -->
+  <script src="./js/main.js"></script>
 </body>
 </html>
