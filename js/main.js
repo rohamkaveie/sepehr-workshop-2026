@@ -1,4 +1,4 @@
-// تابع لود کردن قطعات HTML
+// تابع بارگذاری تک‌تک کامپوننت‌ها
 async function loadComponent(id, file) {
   const container = document.querySelector(`[data-component="${id}"]`);
   if (!container) return;
@@ -6,13 +6,15 @@ async function loadComponent(id, file) {
     const response = await fetch(`components/${file}`);
     if (response.ok) {
       container.innerHTML = await response.text();
+    } else {
+      console.error(`کامپوننت پیدا نشد: ${file}`);
     }
   } catch (error) {
-    console.error(`خطا در بارگذاری کامپوننت ${file}:`, error);
+    console.error(`خطا در بارگذاری ${file}:`, error);
   }
 }
 
-// تابع فعال‌سازی اسلایدر گالری
+// تابع راه‌اندازی اسلایدر گالری
 function initGallerySlider() {
   const slides = document.querySelectorAll('.gallery-slide');
   const dots = document.querySelectorAll('#slider-dots .dot');
@@ -20,7 +22,7 @@ function initGallerySlider() {
   const nextBtn = document.getElementById('nextSlide');
   const track = document.getElementById('slider-track');
 
-  if (!slides.length) return;
+  if (!slides || slides.length === 0) return;
 
   let currentIndex = 0;
   let autoPlayTimer = null;
@@ -57,44 +59,64 @@ function initGallerySlider() {
     showSlide(prevIndex);
   }
 
-  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      nextSlide();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      prevSlide();
+    });
+  }
 
   dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => showSlide(index));
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSlide(index);
+    });
   });
 
-  // حرکت خودکار هر ۴ ثانیه
+  // تعویض خودکار هر ۳.۵ ثانیه
   function startAutoPlay() {
-    autoPlayTimer = setInterval(nextSlide, 4000);
+    stopAutoPlay();
+    autoPlayTimer = setInterval(nextSlide, 3500);
   }
 
   function stopAutoPlay() {
-    clearInterval(autoPlayTimer);
+    if (autoPlayTimer) clearInterval(autoPlayTimer);
   }
 
   startAutoPlay();
 
-  // اگر موس روی عکس رفت، اسلاید خودکار متوقف شود
+  // توقف اسلاید هنگام قرار گرفتن نشانگر موس روی عکس
   if (track) {
     track.addEventListener('mouseenter', stopAutoPlay);
     track.addEventListener('mouseleave', startAutoPlay);
   }
 }
 
-// بارگذاری ترتیبی تمام کامپوننت‌ها
+// تابع اصلی اجرای برنامه
 async function initApp() {
   await loadComponent('navbar', 'navbar.html');
   await loadComponent('hero', 'hero.html');
   await loadComponent('about', 'about.html');
   await loadComponent('topics', 'topics.html');
-  await loadComponent('gallery', 'gallery.html'); // اضافه شد
+  await loadComponent('gallery', 'gallery.html');
   await loadComponent('faq', 'faq.html');
   await loadComponent('register', 'register.html');
   await loadComponent('footer', 'footer.html');
 
-  // راه‌اندازی اسلایدر بعد از لود کامل HTML
+  // فعال‌سازی اسلایدر پس از اضافه شدن قطعات به صفحه
   initGallerySlider();
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+// اجرای اسکریپت پس از لود شدن اولیه DOM
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
