@@ -1,18 +1,100 @@
-// js/main.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const componentPlaceholders = document.querySelectorAll("[data-component]");
-
-  for (const el of componentPlaceholders) {
-    const componentName = el.getAttribute("data-component");
-    try {
-      const response = await fetch(`./components/${componentName}.html`);
-      if (response.ok) {
-        el.outerHTML = await response.text();
-      } else {
-        console.error(`خطا در بارگذاری کامپوننت: ${componentName}`);
-      }
-    } catch (error) {
-      console.error(`عدم دسترسی به کامپوننت ${componentName}:`, error);
+// تابع لود کردن قطعات HTML
+async function loadComponent(id, file) {
+  const container = document.querySelector(`[data-component="${id}"]`);
+  if (!container) return;
+  try {
+    const response = await fetch(`components/${file}`);
+    if (response.ok) {
+      container.innerHTML = await response.text();
     }
+  } catch (error) {
+    console.error(`خطا در بارگذاری کامپوننت ${file}:`, error);
   }
-});
+}
+
+// تابع فعال‌سازی اسلایدر گالری
+function initGallerySlider() {
+  const slides = document.querySelectorAll('.gallery-slide');
+  const dots = document.querySelectorAll('#slider-dots .dot');
+  const prevBtn = document.getElementById('prevSlide');
+  const nextBtn = document.getElementById('nextSlide');
+  const track = document.getElementById('slider-track');
+
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+  let autoPlayTimer = null;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        slide.classList.add('opacity-100', 'scale-100', 'z-10');
+      } else {
+        slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        slide.classList.remove('opacity-100', 'scale-100', 'z-10');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.className = 'dot w-8 h-3 rounded-full bg-indigo-500 transition-all duration-300';
+      } else {
+        dot.className = 'dot w-3 h-3 rounded-full bg-slate-600 hover:bg-slate-400 transition-all duration-300';
+      }
+    });
+
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    let nextIndex = (currentIndex + 1) % slides.length;
+    showSlide(nextIndex);
+  }
+
+  function prevSlide() {
+    let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(prevIndex);
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => showSlide(index));
+  });
+
+  // حرکت خودکار هر ۴ ثانیه
+  function startAutoPlay() {
+    autoPlayTimer = setInterval(nextSlide, 4000);
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayTimer);
+  }
+
+  startAutoPlay();
+
+  // اگر موس روی عکس رفت، اسلاید خودکار متوقف شود
+  if (track) {
+    track.addEventListener('mouseenter', stopAutoPlay);
+    track.addEventListener('mouseleave', startAutoPlay);
+  }
+}
+
+// بارگذاری ترتیبی تمام کامپوننت‌ها
+async function initApp() {
+  await loadComponent('navbar', 'navbar.html');
+  await loadComponent('hero', 'hero.html');
+  await loadComponent('about', 'about.html');
+  await loadComponent('topics', 'topics.html');
+  await loadComponent('gallery', 'gallery.html'); // اضافه شد
+  await loadComponent('faq', 'faq.html');
+  await loadComponent('register', 'register.html');
+  await loadComponent('footer', 'footer.html');
+
+  // راه‌اندازی اسلایدر بعد از لود کامل HTML
+  initGallerySlider();
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
