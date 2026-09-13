@@ -1,4 +1,3 @@
-// تابع بارگذاری تک‌تک کامپوننت‌ها
 async function loadComponent(id, file) {
   const container = document.querySelector(`[data-component="${id}"]`);
   if (!container) return;
@@ -7,14 +6,13 @@ async function loadComponent(id, file) {
     if (response.ok) {
       container.innerHTML = await response.text();
     } else {
-      console.error(`کامپوننت پیدا نشد: ${file}`);
+      console.error(`Component not found: ${file}`);
     }
   } catch (error) {
-    console.error(`خطا در بارگذاری ${file}:`, error);
+    console.error(`Error loading ${file}:`, error);
   }
 }
 
-// تابع راه‌اندازی اسلایدر گالری
 function initGallerySlider() {
   const slides = document.querySelectorAll('.gallery-slide');
   const dots = document.querySelectorAll('#slider-dots .dot');
@@ -60,29 +58,18 @@ function initGallerySlider() {
   }
 
   if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      nextSlide();
-    });
+    nextBtn.onclick = (e) => { e.preventDefault(); nextSlide(); };
   }
-
   if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      prevSlide();
-    });
+    prevBtn.onclick = (e) => { e.preventDefault(); prevSlide(); };
   }
 
   dots.forEach((dot, index) => {
-    dot.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSlide(index);
-    });
+    dot.onclick = (e) => { e.preventDefault(); showSlide(index); };
   });
 
-  // تعویض خودکار هر ۳.۵ ثانیه
   function startAutoPlay() {
-    stopAutoPlay();
+    if (autoPlayTimer) clearInterval(autoPlayTimer);
     autoPlayTimer = setInterval(nextSlide, 3500);
   }
 
@@ -92,14 +79,12 @@ function initGallerySlider() {
 
   startAutoPlay();
 
-  // توقف اسلاید هنگام قرار گرفتن نشانگر موس روی عکس
   if (track) {
-    track.addEventListener('mouseenter', stopAutoPlay);
-    track.addEventListener('mouseleave', startAutoPlay);
+    track.onmouseenter = stopAutoPlay;
+    track.onmouseleave = startAutoPlay;
   }
 }
 
-// تابع اصلی اجرای برنامه
 async function initApp() {
   await loadComponent('navbar', 'navbar.html');
   await loadComponent('hero', 'hero.html');
@@ -109,12 +94,9 @@ async function initApp() {
   await loadComponent('faq', 'faq.html');
   await loadComponent('register', 'register.html');
   await loadComponent('footer', 'footer.html');
-
-  // فعال‌سازی اسلایدر پس از اضافه شدن قطعات به صفحه
   initGallerySlider();
 }
 
-// اجرای اسکریپت پس از لود شدن اولیه DOM
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
